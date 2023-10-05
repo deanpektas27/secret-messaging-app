@@ -8,8 +8,7 @@ const LocalStrategy = require('passport-local');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const User = require('../members-only/models/user');
+const User = require(path.join(__dirname, 'models/user'))
 const bcrypt = require("bcryptjs");
 
 const mongoDb = process.env.MONGODB_URL;
