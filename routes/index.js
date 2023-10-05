@@ -13,6 +13,9 @@ router.get("/", userController.index);
 // GET sign up form to create new user
 router.get('/sign-up', userController.sign_up);
 
+// POST request for secret club join
+router.post('/secret-member-join', userController.member_join_post);
+
 // GET secret club join to enter secret code
 router.get('/member-join', userController.member_join);
 
@@ -21,9 +24,6 @@ router.get('/message/:id/delete', userController.message_delete_get);
 
 // POST request to delete message (as admin)
 router.post('/message/:id/delete', userController.message_delete_post);
-
-// POST request for secret club join
-router.post('/secret-member-join', userController.member_join_post);
 
 // POST request for creating a new user
 router.post("/sign-up", userController.user_create_post);

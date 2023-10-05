@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/user");
 const Message = require("../models/message");
 const bcrypt = require("bcryptjs");
+const session = require('express-session');
 
 const asyncHandler = require("express-async-handler");
 
@@ -24,11 +25,6 @@ exports.index = asyncHandler(async (req, res, next) => {
 exports.sign_up = asyncHandler(async (req, res, next) => {
     // Render signup form
     res.render('sign-up-form', { title: "Sign Up", user: undefined, errors: null });
-})
-
-exports.member_join = asyncHandler(async (req, res, next) => {
-    // Render secret club join
-    res.render('member-join', { title: "Enter secret code", errors: null });
 })
 
 exports.user_createmessage_get = asyncHandler(async (req, res, next) => {
@@ -63,15 +59,19 @@ exports.user_createmessage_post = [
       })
 ]
 
+exports.member_join = asyncHandler(async (req, res, next) => {
+    // Render secret club join
+    res.render('member-join', { title: "Enter secret code", errors: null });
+})
+
 exports.member_join_post = [
     body("secretcode")
       .custom((value) => {
-        console.log(process.env.SECRET_CODE)
         return value === process.env.SECRET_CODE
       }).withMessage('Access denied'),
 
       asyncHandler(async (req, res, next) => {
-        let userName = req.user.username;
+        console.log(req.user);
         const errors = validationResult(req);
 
         if(!errors.isEmpty()) {
@@ -82,9 +82,8 @@ exports.member_join_post = [
             return;
         } else {
             try{
-                const user = await User.findOneAndUpdate({ username: userName }, {memberStatus: true}).exec();
+                await User.findOneAndUpdate({ username: req.user.username }, {memberStatus: true}).exec();
                 res.redirect("/");
-                console.log(user.memberStatus);
             } catch(err) {
                 console.log(err)
             }

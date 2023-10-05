@@ -3,6 +3,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session)
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const cookieParser = require('cookie-parser');
@@ -63,7 +64,14 @@ passport.deserializeUser(async (id, done) => {
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }))
+app.use(session({ 
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+  secret: "keyboard cat", 
+  resave: false, 
+  saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
