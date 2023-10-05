@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+    </head>
+    <body>
+        <h1><%= title %></h1>
+        <label for="msg">Message</label>
+        <form action="" method="POST">
+            <textarea name="msg" id="" cols="40" rows="10"></textarea>
+            <br>
+            <button>Submit</button>
+        </form>
+        <button><a href="/">Cancel</a></button>
+        <% if (errors){%>
+            <ul>
+              <% for (let i in errors) {%>
+                <li><%=errors[i].msg %></li>
+              <%}%>
+            </ul>
+        <%}%>
+    </body>
+</html>

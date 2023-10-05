@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/public/stylesheets/style.css" />
+    </head>
+
+    <body>
+        <h1><%= title %></h1>
+        <p>ID: <%= message.id %></p>
+        <p>Do you really want to remove this message?</p>
+
+        <form method="POST" action="">
+            <input type="hidden" name="messageid" required="true" value="<%= message.id %>">
+            <button type="submit">Delete</button>
+        </form>
+    </body>
+</html>

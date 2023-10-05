@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  <form action="" method="POST">
+    <label for="firstname">First Name</label>
+    <input name="firstname" placeholder="dean" type="text" required="true" value="<%= undefined===user ? '' : user.firstname %>" />
+    <label for="lastname">Last Name</label>
+    <input name="lastname" type="text" required="true" value="<%= undefined===user ? '' : user.lastname %>"/>
+    <label for="username">Username</label>
+    <input name="username" placeholder="username" type="text" required="true" value="<%= undefined===user ? '' : user.username%>"/>
+    <label for="password">Password</label>
+    <input name="password" type="password" required="true" />
+    <label for="confirmpassword">Confirm Password</label>
+    <input name="confirmpassword" type="password" required="true" />
+    <button>Sign Up</button>
+  </form>
+  <% if (errors){%>
+    <ul>
+      <% for (let i in errors) {%>
+        <li><%=errors[i].msg %></li>
+      <%}%>
+    </ul>
+  <%}%>
+
+</body>
+</html>

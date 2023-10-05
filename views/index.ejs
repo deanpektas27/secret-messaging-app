@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <% if (user) {%>
+      <h1>WELCOME BACK <%= user.firstname %></h1>
+      <% if(user.isAdmin == true && user.memberStatus == true) {%>
+        <h2>You got the sauce</h2>
+        <ul>
+          <% for (let i in message_list) { %>
+            <% let messageTime = new Date(message_list[i].createdAt)%>
+            <p class="sender"><%= message_list[i].sender %></p>
+            <div class="msg">
+              <li><%= message_list[i].message %> [<%= messageTime.toLocaleString()%>]</li>
+              <p><%= message_list[i]._id%></p>
+              <a href="/message/<%= message_list[i]._id%>/delete">Delete</a>
+            </div>
+          <%}%>
+        </ul>
+        <a href="/log-out">Log out</a>
+        <br>
+        <a href="/message-create">Create Message</a>
+        <%} else if (user.memberStatus == false) { %>
+              <p>You don't have membership status</p>
+              <h2>Join the Club Now!</h2>
+              
+              <ul>
+                <% for (let i in message_list) { %>
+                  <li>Anonymous Sender: <%=message_list[i].message %></li>
+                <%}%>
+              </ul>
+              <a href="/member-join">Unlock</a>
+              <br>
+              <a href="/log-out">Log out</a>
+          <%} else if (user.memberStatus == true) { %>
+              <p>Welcome to the club</p>
+              <a href="/log-out">Log out</a>
+              <ul>
+                <% for (let i in message_list) { %>
+                  <% let messageTime = new Date(message_list[i].createdAt)%>
+                  <p class="sender"><%= message_list[i].sender %></p>
+                  <div class="msg">
+                    <li><%= message_list[i].message %> [<%= messageTime.toLocaleString()%>]</li>
+                  </div>
+                <%}%>
+              </ul>
+              <a href="/message-create">Create Message</a>
+          <%}%>
+    <% } else { %>
+      <h1><%= title %></h1>
+      <% if(errors) {%>
+        <% for (let i in errors) {%>
+          <p><%= errors[i] %></p>
+        <%}%>
+      <%}%>
+      <form action="/log-in" method="POST">
+        <label for="username">Username</label>
+        <input name="username" placeholder="username" type="text" />
+        <label for="password">Password</label>
+        <input name="password" type="password" />
+        <button>Log In</button>
+      </form>
+      <a href="/sign-up">Create an account</a>
+      <ul>
+      </ul>
+      <ul>
+        <% for (let i in message_list) { %>
+          <li>Anonymous Sender: <%=message_list[i].message %></li>
+        <%}%>
+      </ul>
+    <%}%>     
+  </body>
+</html>

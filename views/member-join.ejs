@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <form action="/secret-member-join" method="POST">
+        <p>Hint: Whats the name of the group chat with the boys?</p>
+        <input name="secretcode" type="password">
+        <button>Enter</button>
+    </form>
+    <% if (errors){%>
+        <p><%=errors[0].msg %></p>
+    <%}%>
+  </body>
+</html>

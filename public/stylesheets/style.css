@@ -1,0 +1,23 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.msg {
+  margin: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  width: 50%;
+  border-style: solid;
+  border-radius: 5px;
+  list-style: none;
+}
+
+.sender {
+  font-weight: 900;
+}
